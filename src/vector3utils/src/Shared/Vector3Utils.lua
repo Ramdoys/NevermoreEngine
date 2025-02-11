@@ -16,7 +16,7 @@ local Vector3Utils = {}
 	@return Vector3
 ]=]
 function Vector3Utils.fromVector2XY(vector2: Vector2): Vector3
-	return Vector3.new(vector2.x, vector2.y, 0)
+	return Vector3.new(vector2.X, vector2.Y, 0)
 end
 
 --[=[
@@ -26,7 +26,7 @@ end
 	@return Vector3
 ]=]
 function Vector3Utils.fromVector2XZ(vector2: Vector2): Vector3
-	return Vector3.new(vector2.x, 0, vector2.y)
+	return Vector3.new(vector2.X, 0, vector2.Y)
 end
 
 --[=[
@@ -36,12 +36,12 @@ end
 	@param b Vector3
 	@return number?
 ]=]
-function Vector3Utils.getAngleRad(a: Vector3, b: Vector3): number
-	if a.magnitude == 0 then
+function Vector3Utils.getAngleRad(a: Vector3, b: Vector3): number | nil
+	if vector.magnitude(a) == 0 then
 		return nil
 	end
 
-	return math.acos(a:Dot(b))
+	return math.acos(vector.dot(a, b))
 end
 
 --[=[
@@ -51,8 +51,8 @@ end
 	@param unitNormal Vector3
 	@return Vector3
 ]=]
-function Vector3Utils.reflect(vector: Vector3, unitNormal: Vector3): Vector3
-	return vector - 2*(unitNormal*vector:Dot(unitNormal))
+function Vector3Utils.reflect(vector3: Vector3, unitNormal: Vector3): Vector3
+	return vector - 2 * (unitNormal * vector.dot(vector3, unitNormal))
 end
 
 --[=[
@@ -63,9 +63,9 @@ end
 	@return number
 ]=]
 function Vector3Utils.angleBetweenVectors(a: Vector3, b: Vector3): number
-	local u = b.magnitude*a
-	local v = a.magnitude*b
-	return 2*math.atan2((v - u).magnitude, (u + v).magnitude)
+	local u = vector.magnitude(b) * a
+	local v = vector.magnitude(a) * b
+	return 2 * math.atan2(vector.magnitude(v - u), vector.magnitude(u + v))
 end
 
 --[=[
@@ -77,11 +77,11 @@ end
 	@return Vector3
 ]=]
 function Vector3Utils.slerp(start: Vector3, finish: Vector3, t: number)
-	local dot = math.clamp(start:Dot(finish), -1, 1)
+	local dot = math.clamp(vector.dot(start, finish), -1, 1)
 
-	local theta = math.acos(dot)*t
-	local relVec = (finish - start*dot).unit
-	return ((start*math.cos(theta)) + (relVec*math.sin(theta)))
+	local theta = math.acos(dot) * t
+	local relVec = vector.normalize(finish - start * dot)
+	return ((start * math.cos(theta)) + (relVec * math.sin(theta)))
 end
 
 --[=[
@@ -94,7 +94,7 @@ end
 ]=]
 function Vector3Utils.constrainToCone(direction: Vector3, coneDirection: Vector3, coneAngleRad: number): Vector3
 	local angle = Vector3Utils.angleBetweenVectors(direction, coneDirection)
-	local coneHalfAngle = 0.5*coneAngleRad
+	local coneHalfAngle = 0.5 * coneAngleRad
 
 	if angle > coneHalfAngle then
 		local proportion = coneHalfAngle / angle
@@ -128,12 +128,10 @@ end
 	@param epsilon number
 	@return boolean
 ]=]
-function Vector3Utils.areClose(a, b, epsilon)
+function Vector3Utils.areClose(a: Vector3, b: Vector3, epsilon: number)
 	assert(type(epsilon) == "number", "Bad epsilon")
 
-	return math.abs(a.x - b.x) <= epsilon
-		and math.abs(a.y - b.y) <= epsilon
-		and math.abs(a.z - b.z) <= epsilon
+	return math.abs(a.X - b.X) <= epsilon and math.abs(a.Y - b.Y) <= epsilon and math.abs(a.Z - b.Z) <= epsilon
 end
 
 return Vector3Utils

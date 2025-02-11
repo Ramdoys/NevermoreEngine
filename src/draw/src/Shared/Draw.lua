@@ -7,8 +7,8 @@
 
 	```lua
 	-- A sample of a few API uses
-	Draw.point(Vector3.new(0, 0, 0))
-	Draw.terrainCell(Vector3.new(0, 0, 0))
+	Draw.point(vector.zero)
+	Draw.terrainCell(vector.zero)
 	Draw.cframe(CFrame.new(0, 10, 0))
 	Draw.text(Vector3.new(0, -10, 0), "Testing!")
 	```
@@ -271,7 +271,7 @@ end
 	Draws a ray for debugging.
 
 	```lua
-	local ray = Ray.new(Vector3.new(0, 0, 0), Vector3.new(0, 10, 0))
+	local ray = Ray.new(vector.zero, Vector3.new(0, 10, 0))
 	Draw.ray(ray)
 	```
 
@@ -339,11 +339,11 @@ end
 	renderstepped would impact performance, even in debug mode.
 
 	```lua
-	local ray = Ray.new(Vector3.new(0, 0, 0), Vector3.new(0, 10, 0))
+	local ray = Ray.new(vector.zero, Vector3.new(0, 10, 0))
 	local drawn = Draw.ray(ray)
 
 	RunService.RenderStepped:Connect(function()
-		local newRay = Ray.new(Vector3.new(0, 0, 0), Vector3.new(0, 10*math.sin(os.clock()), 0))
+		local newRay = Ray.new(vector.zero, Vector3.new(0, 10*math.sin(os.clock()), 0))
 		Draw.updateRay(drawn, newRay Color3.new(1, 0.5, 0.5))
 	end)
 	```
@@ -739,7 +739,7 @@ end
 	Renders a region3 in 3D space.
 
 	```lua
-	Draw.region3(Region3.new(Vector3.new(0, 0, 0), Vector3.new(10, 10, 10)))
+	Draw.region3(Region3.new(vector.zero, Vector3.new(10, 10, 10)))
 	```
 
 	@param region3 Region3 -- Region3 to render
@@ -757,7 +757,7 @@ end
 	to the nearest position.
 
 	```lua
-	Draw.terrainCell(Vector3.new(0, 0, 0))
+	Draw.terrainCell(vector.zero)
 	```
 
 	@param position Vector3 -- World space position
@@ -844,7 +844,7 @@ end
 	Draws a vector in 3D space.
 
 	```lua
-	Draw.vector(Vector3.new(0, 0, 0), Vector3.new(0, 1, 0))
+	Draw.vector(vector.zero, Vector3.new(0, 1, 0))
 	```
 
 	@param position Vector3 -- Position of the vector
@@ -866,7 +866,7 @@ end
 	Draws a ring in 3D space.
 
 	```lua
-	Draw.ring(Vector3.new(0, 0, 0), Vector3.new(0, 1, 0), 10)
+	Draw.ring(vector.zero, Vector3.new(0, 1, 0), 10)
 	```
 
 	@param ringPos Vector3 -- Position of the center of the ring

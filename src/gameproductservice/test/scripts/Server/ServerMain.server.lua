@@ -28,7 +28,7 @@ local function makePrompt(assetType, idOrKey, cframe)
 	promptPart.TopSurface = Enum.SurfaceType.Smooth
 	promptPart.BottomSurface = Enum.SurfaceType.Smooth
 	promptPart.Name = "promptPart"
-	promptPart.Size = Vector3.new(1, 1, 1)
+	promptPart.Size = vector.one
 	promptPart.CFrame = cframe
 
 	local prompt = Instance.new("ProximityPrompt")

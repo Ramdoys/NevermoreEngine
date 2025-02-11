@@ -188,7 +188,7 @@ function AdorneeValue:GetRadius()
 			return nil
 		end
 
-		return bbSize.magnitude/2
+		return vector.magnitude(bbSize) / 2
 	elseif adornee then
 		warn("Bad adornee")
 		return nil
